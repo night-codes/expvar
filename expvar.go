@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+type (
+	FuncMap map[string]func() interface{}
+)
+
 var startTime = time.Now().UTC()
 
 func goroutines() interface{} {
@@ -20,7 +24,7 @@ func uptime() interface{} {
 }
 
 // Start expvar export
-func Start(host string, fns ...map[string]func() interface{}) {
+func Start(host string, fns ...FuncMap) {
 	if len(fns) > 0 {
 		for name, fn := range fns[0] {
 			expvar.Publish(name, expvar.Func(fn))
