@@ -20,9 +20,13 @@ func uptime() interface{} {
 }
 
 // Start expvar export
-func Start(host string) {
+func Start(host string, fns ...map[string]func() interface{}) {
+	if len(fns) > 0 {
+		for name, fn := range fns[0] {
+			expvar.Publish(name, expvar.Func(fn))
+		}
+	}
 	expvar.Publish("Goroutines", expvar.Func(goroutines))
 	expvar.Publish("Uptime", expvar.Func(uptime))
 	go http.ListenAndServe(host, nil) //debug port
 }
-
