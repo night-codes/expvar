@@ -6,7 +6,7 @@ Go expvar wrapper with goroutines and uptime
 Add the code to your project:
 
 ```go
-import "github.com/mirrr/expvar"
+import "github.com/night-codes/expvar"
 
 expvar.Start(":3000")
 ```
